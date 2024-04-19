@@ -1,0 +1,17 @@
+# Nws-Cli - NWS CLI
+
+## Usage
+
+## Installation
+
+## Author
+
+* Margaret Miller (maeborow@posteo.net)
+
+## Copyright
+
+Copyright (c) 2024 Margaret Miller (maeborow@posteo.net)
+
+## License
+
+Licensed under the LGPL License.
