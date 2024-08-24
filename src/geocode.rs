@@ -1,10 +1,10 @@
 pub mod geocode {
-    use grid_json;
+    use crate::grid_json;
 
     use reqwest::{Client,ClientBuilder,Response};
     use serde_json::{Result, Value};
     
-    async fn get_grids(lat: f32, long: f32) -> Value {
+    async fn get_grids(lat: f32, long: f32) -> Result<serde_json::Value, serde_json::Error> {
         let builder = reqwest::Client::builder()
             .user_agent("nws-cli-0.1")
             .build();
@@ -23,11 +23,10 @@ pub mod geocode {
             Ok(val) => val,
             Err(err) => panic!("Failed to send http, {err}")
         };
-
+        
         match json_raw.json::<serde_json::Value>().await {
-            Ok(val) => val,
-            Err(err) => panic!("Failed to parse JSON: {err}.")
+            Ok(json)
         }
-    }
 
+    }
 }
