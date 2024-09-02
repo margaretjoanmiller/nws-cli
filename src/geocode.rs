@@ -5,7 +5,7 @@ pub mod geocode {
     use serde_json::{Result};
     use crate::grid_json::grid_json::GridJson;
 
-    async fn get_grids(lat: f32, long: f32) -> anyhow::Result<GridJson> {
+    pub async fn get_grids(lat: f32, long: f32) -> anyhow::Result<GridJson> {
         let builder = reqwest::Client::builder()
             .user_agent("nws-cli-0.1")
             .build();

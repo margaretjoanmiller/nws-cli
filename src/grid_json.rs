@@ -5,16 +5,16 @@ pub mod grid_json {
     #[derive(Serialize, Deserialize)]
     pub struct GridJson {
         #[serde(rename = "@context")]
-        context: Vec<ContextElement>,
+        pub context: Vec<ContextElement>,
 
-        id: String,
+        pub id: String,
 
         #[serde(rename = "type")]
-        grid_json_type: String,
+        pub grid_json_type: String,
 
-        geometry: Geometry,
+        pub geometry: Geometry,
 
-        properties: GridJsonProperties,
+        pub properties: GridJsonProperties,
     }
 
     #[derive(Serialize, Deserialize)]
@@ -105,15 +105,15 @@ pub mod grid_json {
 
         cwa: String,
 
-        forecast_office: String,
+        pub forecast_office: String,
 
-        grid_id: String,
+        pub grid_id: String,
 
-        grid_x: i64,
+        pub grid_x: i64,
 
-        grid_y: i64,
+        pub grid_y: i64,
 
-        forecast: String,
+        pub forecast: String,
 
         forecast_hourly: String,
 
