@@ -1,74 +1,75 @@
-use serde::{Deserialize, Serialize};
+use serde::{Serialize, Deserialize};
 pub mod forecast_json {
-    #[derive(Serialize, Deserialize, Debug, Clone)]
-    pub struct Geometry {
-        pub geometry_type: Option<String>,
-    }
-    #[derive(Serialize, Deserialize, Debug, Clone)]
-    pub struct Elevation {
-        pub unit_code: Option<String>,
+	#[derive(Serialize, Deserialize, Debug)]
+pub struct Geometry {
+	pub geometry_type: String,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Elevation {
+	pub unit_code: String,
 
-        pub value: Option<i64>,
-    }
-    #[derive(Serialize, Deserialize, Debug, Clone)]
-    pub struct ProbabilityOfPrecipitation {
-        pub unit_code: Option<String>,
-    }
-    #[derive(Serialize, Deserialize, Debug, Clone)]
-    pub struct Periods {
-        pub number: Option<i32>,
+	pub value: i64,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ProbabilityOfPrecipitation {
+	pub unit_code: String,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Periods {
+	pub detailed_forecast: String,
 
-        pub name: Option<String>,
+	pub end_time: String,
 
-        pub start_time: Option<String>,
+	pub icon: String,
 
-        pub end_time: Option<String>,
+	pub is_daytime: bool,
 
-        pub is_daytime: Option<bool>,
+	pub name: String,
 
-        pub temperature: Option<i32>,
+	pub number: i32,
 
-        pub temperature_unit: Option<String>,
+	pub probability_of_precipitation: ProbabilityOfPrecipitation,
 
-        pub temperature_trend: Option<String>,
+	pub short_forecast: String,
 
-        pub probability_of_precipitation: Option<ProbabilityOfPrecipitation>,
+	pub start_time: String,
 
-        pub wind_speed: Option<String>,
+	pub temperature: i32,
 
-        pub wind_direction: Option<String>,
+	pub temperature_trend: String,
 
-        pub icon: Option<String>,
+	pub temperature_unit: String,
 
-        pub short_forecast: Option<String>,
+	pub wind_direction: String,
 
-        pub detailed_forecast: Option<String>,
-    }
-    #[derive(Serialize, Deserialize, Debug, Clone)]
-    pub struct Properties {
-        pub units: Option<String>,
+	pub wind_speed: String,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Properties {
+	pub elevation: Elevation,
 
-        pub forecast_generator: Option<String>,
+	pub forecast_generator: String,
 
-        pub generated_at: Option<String>,
+	pub generated_at: String,
 
-        pub update_time: Option<String>,
+	pub periods: Vec<Periods>,
 
-        pub valid_times: Option<String>,
+	pub units: String,
 
-        pub elevation: Option<Elevation>,
+	pub update_time: String,
 
-        pub periods: Option<Vec<Periods>>,
-    }
-    #[derive(Serialize, Deserialize, Debug, Clone)]
-    pub struct ForecastJson {
-        #[serde(rename = "@context")]
-        pub context: Option<Vec<String>>,
+	pub valid_times: String,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ForecastJson {
+	#[serde (rename="@context")]
+	pub context: Vec<String>,
 
-        pub root_type: Option<String>,
+	pub geometry: Geometry,
 
-        pub geometry: Option<Geometry>,
+	pub properties: Properties,
 
-        pub properties: Option<Properties>,
-    }
+	pub root_type: String,
+}
+
 }
