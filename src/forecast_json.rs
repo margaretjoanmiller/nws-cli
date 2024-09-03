@@ -1,75 +1,84 @@
-use serde::{Serialize, Deserialize};
 pub mod forecast_json {
-	#[derive(Serialize, Deserialize, Debug)]
-pub struct Geometry {
-	pub geometry_type: String,
-}
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Elevation {
-	pub unit_code: String,
+    use serde::{Serialize, Deserialize};
 
-	pub value: i64,
-}
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ProbabilityOfPrecipitation {
-	pub unit_code: String,
-}
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Periods {
-	pub detailed_forecast: String,
 
-	pub end_time: String,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    pub struct ForecastJson {
+        #[serde(rename = "@context")]
+        pub context: Vec<ContextElement>,
+        pub geometry: Geometry,
+        pub properties: Properties,
+        #[serde(rename = "type")]
+        pub forecast_type: String,
+    }
 
-	pub icon: String,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(untagged)]
+    pub enum ContextElement {
+        ContextClass(ContextClass),
+        String(String),
+    }
 
-	pub is_daytime: bool,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    pub struct ContextClass {
+        #[serde(rename = "@version")]
+        pub version: String,
+        #[serde(rename = "@vocab")]
+        pub vocab: String,
+        pub geo: String,
+        pub unit: String,
+        pub wx: String,
+    }
 
-	pub name: String,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    pub struct Geometry {
+        pub coordinates: Vec<Vec<Vec<f64>>>,
+        #[serde(rename = "type")]
+        pub geometry_type: String,
+    }
 
-	pub number: i32,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Properties {
+        pub elevation: Elevation,
+        pub forecast_generator: String,
+        pub generated_at: String,
+        pub periods: Vec<Period>,
+        pub units: String,
+        pub update_time: String,
+        pub valid_times: String,
+    }
 
-	pub probability_of_precipitation: ProbabilityOfPrecipitation,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Elevation {
+        pub unit_code: String,
+        pub value: f64,
+    }
 
-	pub short_forecast: String,
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct Period {
+        pub detailed_forecast: String,
+        pub end_time: String,
+        pub icon: String,
+        pub is_daytime: bool,
+        pub name: String,
+        pub number: i64,
+        pub probability_of_precipitation: ProbabilityOfPrecipitation,
+        pub short_forecast: String,
+        pub start_time: String,
+        pub temperature: i64,
+        pub temperature_trend: String,
+        pub temperature_unit: String,
+        pub wind_direction: String,
+        pub wind_speed: String,
+    }
 
-	pub start_time: String,
-
-	pub temperature: i32,
-
-	pub temperature_trend: String,
-
-	pub temperature_unit: String,
-
-	pub wind_direction: String,
-
-	pub wind_speed: String,
-}
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Properties {
-	pub elevation: Elevation,
-
-	pub forecast_generator: String,
-
-	pub generated_at: String,
-
-	pub periods: Vec<Periods>,
-
-	pub units: String,
-
-	pub update_time: String,
-
-	pub valid_times: String,
-}
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ForecastJson {
-	#[serde (rename="@context")]
-	pub context: Vec<String>,
-
-	pub geometry: Geometry,
-
-	pub properties: Properties,
-
-	pub root_type: String,
-}
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct ProbabilityOfPrecipitation {
+        pub unit_code: String,
+    }
 
 }

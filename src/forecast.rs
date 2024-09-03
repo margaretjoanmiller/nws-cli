@@ -4,7 +4,7 @@ pub mod forecast {
     use reqwest::Client;
 
     use crate::{
-        forecast_json::forecast_json::{ForecastJson, Periods},
+        forecast_json::forecast_json::{ForecastJson, Period},
         geocode::geocode::get_grids,
         grid_json::grid_json::{GridJson, GridJsonProperties},
     };
@@ -34,7 +34,7 @@ pub mod forecast {
     pub async fn get_current_condtions(lat: f32, long: f32) -> anyhow::Result<String> {
         let raw_json: ForecastJson = get_forecast_raw(lat, long).await?;
 
-        let today_i_hope: &Periods = &raw_json
+        let today_i_hope: &Period = &raw_json
             .properties
             .periods
             .get(0)
