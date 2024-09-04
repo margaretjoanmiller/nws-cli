@@ -1,8 +1,8 @@
 pub mod geocode {
-    use crate::grid_json;
+    
 
-    use reqwest::{Client,ClientBuilder,Response};
-    use serde_json::{Result};
+    use reqwest::Client;
+    
     use crate::grid_json::grid_json::GridJson;
 
     pub async fn get_grids(lat: f32, long: f32) -> anyhow::Result<GridJson> {

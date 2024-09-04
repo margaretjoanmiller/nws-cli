@@ -1,12 +1,12 @@
 pub mod forecast {
 
-    use anyhow::Error;
+    
     use reqwest::Client;
 
     use crate::{
         forecast_json::forecast_json::{ForecastJson, Period},
         geocode::geocode::get_grids,
-        grid_json::grid_json::{GridJson, GridJsonProperties},
+        grid_json::grid_json::GridJson,
     };
 
     pub async fn get_forecast_raw(lat: f32, long: f32) -> anyhow::Result<ForecastJson> {
@@ -34,14 +34,13 @@ pub mod forecast {
     pub async fn get_current_condtions(lat: f32, long: f32) -> anyhow::Result<String> {
         let raw_json: ForecastJson = get_forecast_raw(lat, long).await?;
 
-        let today_i_hope: &Period = &raw_json
+        let today_i_hope: &Period = raw_json
             .properties
-            .periods
-            .get(0)
+            .periods.first()
             .expect("Invalid json!");
 
         let current_temp: String = format!("{}°", &today_i_hope.temperature);
-        let current_conditions: String = format!("{}°", &today_i_hope.short_forecast);
+        let current_conditions: String = format!("{}", &today_i_hope.short_forecast);
 
         Ok(format!("{current_temp} -- {current_conditions}"))
     }
