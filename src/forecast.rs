@@ -1,6 +1,7 @@
 pub mod forecast {
-
     
+    use std::ops::Deref;
+
     use reqwest::Client;
 
     use crate::{
@@ -43,5 +44,23 @@ pub mod forecast {
         let current_conditions: String = format!("{}", &today_i_hope.short_forecast);
 
         Ok(format!("{current_temp} -- {current_conditions}"))
+    }
+    
+    pub async fn get_five_day_forecast(lat: f32, long: f32) -> anyhow::Result<String> {
+        let raw_json: ForecastJson = get_forecast_raw(lat, long).await?;
+
+        let forecast_vec = raw_json.properties.periods;
+        let mut forecast_string = String::new();
+
+        for n in 1..10 {
+            let raw_forecast = &forecast_vec[n-1];
+            forecast_string = format!("{forecast_string}\n {}: {}° -- {}",
+                                      &raw_forecast.name,
+                                      // &raw_forecast.icon,
+                                      &raw_forecast.temperature,
+                                      &raw_forecast.short_forecast);
+        }
+
+        Ok(forecast_string)
     }
 }

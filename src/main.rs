@@ -1,4 +1,4 @@
-use nwslib::{forecast::forecast::get_current_condtions, grid_json::grid_json::RelativeLocationProperties};
+use nwslib::{forecast::forecast::{get_current_condtions, get_five_day_forecast}, grid_json::grid_json::RelativeLocationProperties};
 
 use std::path::PathBuf;
 
@@ -26,6 +26,11 @@ enum Commands {
     CurrentConditions {
         lat: f32,
         long: f32,
+    },
+
+    FiveDayForecast {
+        lat: f32,
+        long: f32
     }
 }
 
@@ -52,7 +57,12 @@ async fn main() {
         Some(Commands::CurrentConditions { lat, long } ) => {
             println!("{}", get_current_condtions(*lat,*long).await.expect("Could not get forecast!"));            
         }
+        Some(Commands::FiveDayForecast { lat, long }) => {
+            println!("{}", get_five_day_forecast(*lat,*long).await.expect("Could not get forecast!"))
+        }
         None => (),
     }
 
 }
+
+
