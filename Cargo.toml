@@ -2,6 +2,11 @@
 name = "nws-cli"
 version = "0.1.0"
 edition = "2021"
+license = "GPL-3.0-or-later"
+description = "a CLI application that gets the forecast or current conditions from the National Weather Service"
+homepage = "https://codeberg.org/0x4d6165/nws-cli"
+repository = "https://codeberg.org/0x4d6165/nws-cli"
+readme = "README.org"
 
 [dependencies]
 clap = { version = "4.5.15", features = ["derive"] }
