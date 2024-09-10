@@ -1,6 +1,23 @@
+// nws-cli, a CLI application that gets the forecast or current conditions from the National Weather Service
+//     Copyright (C) 2024 Margaret Joan Miller
+
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>
+
+
 pub mod forecast {
     
-    use std::ops::Deref;
+    
 
     use reqwest::Client;
 
@@ -41,7 +58,7 @@ pub mod forecast {
             .expect("Invalid json!");
 
         let current_temp: String = format!("{}°", &today_i_hope.temperature);
-        let current_conditions: String = format!("{}", &today_i_hope.short_forecast);
+        let current_conditions: String = today_i_hope.short_forecast.to_string();
 
         Ok(format!("{current_temp} -- {current_conditions}"))
     }

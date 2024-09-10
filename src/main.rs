@@ -1,11 +1,27 @@
-use nwslib::{forecast::forecast::{get_current_condtions, get_five_day_forecast}, grid_json::grid_json::RelativeLocationProperties};
+// nws-cli, a CLI application that gets the forecast or current conditions from the National Weather Service
+//     Copyright (C) 2024 Margaret Joan Miller
+
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>
+
+use nwslib::forecast::forecast::{get_current_condtions, get_five_day_forecast};
 
 use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
-#[command(version, about, long_about = None, arg_required_else_help = true)]
+#[command(version, about, long_about = None , arg_required_else_help = true)]
 struct Cli {
     /// Optional name to operate on
     lat: Option<f32>,
